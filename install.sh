@@ -6,7 +6,14 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VENV_DIR="$SCRIPT_DIR/.venv"
 
 echo "==> Creating virtual environment at $VENV_DIR"
-python3 -m venv "$VENV_DIR"
+if ! python3 -m venv "$VENV_DIR" 2>/dev/null; then
+    PY_VER=$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+    echo ""
+    echo "Error: python3-venv is not installed. Fix it with:"
+    echo "  sudo apt install python${PY_VER}-venv"
+    echo ""
+    exit 1
+fi
 
 echo "==> Installing dependencies"
 "$VENV_DIR/bin/pip" install --quiet --upgrade pip
