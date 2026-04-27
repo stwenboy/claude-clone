@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "claude-local"
+version = "0.1.0"
+description = "A local Claude Code equivalent — AI coding assistant in your terminal"
+requires-python = ">=3.9"
+dependencies = [
+    "anthropic>=0.40.0",
+    "rich>=13.0.0",
+]
+
+[project.scripts]
+claude-local = "claude_local.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["claude_local*"]
